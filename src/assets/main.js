@@ -9,19 +9,20 @@ let replaydiv = document.getElementById('replay-div');
 
 function guess() {
     let input = document.getElementById('user-guess');
-    if (answer == '' || attempt == '') {
+    if (answer.value == '' || attempt.value == '') {
       setHiddenFields();
     }
+    input.value = input.value.toString(10);
     if (!validateInput(input.value)) {
       return false;
     }
-    attempt++;
+    attempt.value++;
 
     if (getResults(input.value)) {
       setMessage('You Win! :)');
       showAnswer(true);
       showReplay();
-    } else if (attempt >= 10) {
+    } else if (attempt.value >= 10) {
       setMessage('You Lose! :(');
       showAnswer(false);
       showReplay();
@@ -31,13 +32,13 @@ function guess() {
 }
 
 function setHiddenFields() {
-  answer = Math.floor(Math.random() * 10000);
-  answer = answer.toString(10);
-  while (answer.length < 4) {
-    answer = '0' + answer;
+  answer.value = Math.floor(Math.random() * 10000);
+  answer.value = answer.toString(10);
+  while (answer.value.length < 4) {
+    answer.value = '0' + answer.value;
   }
 
-  attempt = 0;
+  attempt.value = 0;
   return true;
 }
 
@@ -59,7 +60,6 @@ function getResults(number) {
   var isPresent = false;
   var correctSpot = false;
   var htmlOut = '';
-  var numString = number.toString(10);
   var correctGuesses = 0;
   htmlOut += '<div class="row"><span class="col-md-6">' + number
     + '</span><div class="col-md-6">';
@@ -67,7 +67,7 @@ function getResults(number) {
     var isPresent = false;
     var correctSpot = false;
     for (var j = 0; j < 3; j++) {
-      if (numString.charAt(i) == answer.charAt(j)) {
+      if (number.charAt(i) == answer.charAt(j)) {
         if (i == j) {
           correctSpot = true;
           correctGuesses++;
@@ -83,7 +83,7 @@ function getResults(number) {
       htmlOut += '<span class="glyphicon glyphicon-remove"></span>';
     }
   }
-  htmlOut += '</div>';
+  htmlOut += '</div></div>';
   results.innerHTML = htmlOut;
   if (correctGuesses == 4) {
     return true;
