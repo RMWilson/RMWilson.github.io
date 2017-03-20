@@ -6,9 +6,9 @@ function guess() {
     if (answer == '' || attempt == '') {
       setHiddenFields();
     }
-    input = input.toString(10);
-    if (!validateInput(input.value)) {
-      return false;
+    //input = input.toString(10);
+    if (!validateInput(input)) {
+      return;
     }
     attempt++;
 
