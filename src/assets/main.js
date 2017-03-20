@@ -1,12 +1,12 @@
-let answer = document.getElementById('answer').value;
-let attempt = document.getElementById('attempt').value;
+let answer = document.getElementById('answer').value,
+    attempt = document.getElementById('attempt').value;
 
 function guess() {
     let input = document.getElementById('user-guess').value;
     if (answer == '' || attempt == '') {
       setHiddenFields();
     }
-    //input = input.toString(10);
+
     if (!validateInput(input)) {
       return;
     }
@@ -48,15 +48,15 @@ function validateInput(guessIn) {
 }
 
 function getResults(number) {
-  var isPresent = false;
-  var correctSpot = false;
-  var correctGuesses = 0;
-  var htmlOut = '<div class="row"><span class="col-md-6">' + number
-    + '</span><div class="col-md-6">';
-  for (var i = 0; i < 3; i++) {
+  let isPresent = false,
+      correctSpot = false,
+      correctGuesses = 0,
+      htmlOut = '<div class="row"><span class="col-md-6">' + number
+              + '</span><div class="col-md-6">';
+  for (let i = 0; i < 4; i++) {
     isPresent = false;
     correctSpot = false;
-    for (var j = 0; j < 3; j++) {
+    for (let j = 0; j < 4; j++) {
       if (number.charAt(i) == answer.charAt(j)) {
         if (i == j) {
           correctSpot = true;
@@ -67,14 +67,16 @@ function getResults(number) {
     }
     if (correctSpot) {
       htmlOut += '<span class="glyphicon glyphicon-ok"></span>';
-    } elseif (isPresent) {
+    } else if (isPresent) {
       htmlOut += '<span class="glyphicon glyphicon-transfer"></span>';
     } else {
       htmlOut += '<span class="glyphicon glyphicon-remove"></span>';
     }
   }
+
+
   htmlOut += '</div></div>';
-  document.getElementById('results').innerHTML = htmlOut;
+  document.getElementById('results').innerHTML += htmlOut;
   if (correctGuesses == 4) {
     return true;
   } else {
