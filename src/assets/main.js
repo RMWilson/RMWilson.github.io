@@ -1,22 +1,22 @@
-let answer = document.getElementById('answer').value,
-    attempt = document.getElementById('attempt').value;
+let answer = document.getElementById('answer'),
+    attempt = document.getElementById('attempt');
 
 function guess() {
-    let input = document.getElementById('user-guess').value;
-    if (answer == '' || attempt == '') {
+    let input = document.getElementById('user-guess');
+    if (answer.value == '' || attempt.value == '') {
       setHiddenFields();
     }
 
-    if (!validateInput(input)) {
+    if (!validateInput(input.value)) {
       return;
     }
-    attempt++;
+    attempt.value++;
 
-    if (getResults(input)) {
+    if (getResults(input.value)) {
       setMessage('You Win! :)');
       showAnswer(true);
       showReplay();
-    } else if (attempt >= 10) {
+    } else if (attempt.value >= 10) {
       setMessage('You Lose! :(');
       showAnswer(false);
       showReplay();
@@ -26,12 +26,12 @@ function guess() {
 }
 
 function setHiddenFields() {
-  answer = Math.floor(Math.random() * 10000).toString(10);
-  while (answer.length < 4) {
-    answer = '0' + answer;
+  answer.value = Math.floor(Math.random() * 10000).toString(10);
+  while (answer.value.length < 4) {
+    answer.value = '0' + answer.value;
   }
 
-  attempt = 0;
+  attempt.value = 0;
 }
 
 function setMessage(msgIn) {
@@ -57,7 +57,7 @@ function getResults(number) {
     isPresent = false;
     correctSpot = false;
     for (let j = 0; j < 4; j++) {
-      if (number.charAt(i) == answer.charAt(j)) {
+      if (number.charAt(i) == answer.value.charAt(j)) {
         if (i == j) {
           correctSpot = true;
           correctGuesses++;
@@ -86,7 +86,7 @@ function getResults(number) {
 
 function showAnswer(winner) {
   let code = document.getElementById('code');
-  code.innerHTML = answer;
+  code.innerHTML = answer.value;
   if (winner) {
     code.className += ' success';
   } else {
