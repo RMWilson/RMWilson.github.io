@@ -1,11 +1,6 @@
 //working?
 let answer = document.getElementById('answer');
 let attempt = document.getElementById('attempt');
-let message = document.getElementById('message');
-let results = document.getElementById('results');
-let code = document.getElementById('code');
-let guessingdiv = document.getElementById('guessing-div');
-let replaydiv = document.getElementById('replay-div');
 
 function guess() {
     let input = document.getElementById('user-guess');
@@ -32,8 +27,7 @@ function guess() {
 }
 
 function setHiddenFields() {
-  answer.value = Math.floor(Math.random() * 10000);
-  answer.value = answer.toString(10);
+  answer.value = Math.floor(Math.random() * 10000).toString(10);
   while (answer.value.length < 4) {
     answer.value = '0' + answer.value;
   }
@@ -43,7 +37,7 @@ function setHiddenFields() {
 }
 
 function setMessage(msgIn) {
-  message.innerHTML = msgIn;
+  document.getElementById('message').innerHTML = msgIn;
   return true;
 }
 
@@ -59,15 +53,14 @@ function validateInput(guessIn) {
 function getResults(number) {
   var isPresent = false;
   var correctSpot = false;
-  var htmlOut = '';
   var correctGuesses = 0;
-  htmlOut += '<div class="row"><span class="col-md-6">' + number
+  var htmlOut = '<div class="row"><span class="col-md-6">' + number
     + '</span><div class="col-md-6">';
   for (var i = 0; i < 3; i++) {
     var isPresent = false;
     var correctSpot = false;
     for (var j = 0; j < 3; j++) {
-      if (number.charAt(i) == answer.charAt(j)) {
+      if (number.charAt(i) == answer.value.charAt(j)) {
         if (i == j) {
           correctSpot = true;
           correctGuesses++;
@@ -84,7 +77,7 @@ function getResults(number) {
     }
   }
   htmlOut += '</div></div>';
-  results.innerHTML = htmlOut;
+  document.getElementById('results').innerHTML = htmlOut;
   if (correctGuesses == 4) {
     return true;
   } else {
@@ -93,6 +86,7 @@ function getResults(number) {
 }
 
 function showAnswer(winner) {
+  let code = document.getElementById('code');
   code.innerHTML = answer.value;
   if (winner) {
     code.className += ' success';
@@ -103,7 +97,7 @@ function showAnswer(winner) {
 }
 
 function showReplay() {
-  guessingdiv.style.display = 'none';
-  replaydiv.style.display = 'block';
+  document.getElementById('guessing-div').style.display = 'none';
+  document.getElementById('replay-div').style.display = 'block';
   return true;
 }
